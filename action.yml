@@ -17,6 +17,9 @@ inputs:
   github_token:
     description: GitHub token secret
     required: true
+  ssh_private_key:
+    description: SSH private key
+    required: false
   sync_tags:
     description: Should tags also be synced
     required: false
@@ -24,6 +27,7 @@ runs:
   using: 'docker'
   image: docker://ghcr.io/repo-sync/github-sync:v2.3.0
   env:
+    SSH_PRIVATE_KEY: ${{ inputs.ssh_private_key }}
     GITHUB_TOKEN: ${{ inputs.github_token }}
     SYNC_TAGS: ${{ inputs.sync_tags }}
   args:
